@@ -1,0 +1,60 @@
+anomalies:
+  - name: error_spike
+    description: "Sudden increase in error logs for a service"
+    severity: HIGH
+    detection:
+      metric: "error_count"
+      condition: ">"
+      threshold: 50
+      time_window: "5 minutes"
+    example:
+      service: "payment-service"
+      errors_in_5_minutes: 72
+
+  - name: high_latency
+    description: "Service response time is unusually slow"
+    severity: MEDIUM
+    detection:
+      metric: "average_response_time_ms"
+      condition: ">"
+      threshold: 2000
+      time_window: "10 minutes"
+    example:
+      service: "order-service"
+      avg_response_time_ms: 2450
+
+  - name: service_down
+    description: "No logs received from a service"
+    severity: HIGH
+    detection:
+      metric: "log_count"
+      condition: "=="
+      threshold: 0
+      time_window: "5 minutes"
+    example:
+      service: "auth-service"
+      logs_received: 0
+
+  - name: failed_login_attempts
+    description: "Too many failed login attempts from same IP"
+    severity: HIGH
+    detection:
+      metric: "failed_login_count"
+      condition: ">"
+      threshold: 10
+      time_window: "2 minutes"
+    example:
+      ip_address: "192.168.1.10"
+      failed_attempts: 14
+
+  - name: db_connection_exhaustion
+    description: "Database connections close to maximum limit"
+    severity: CRITICAL
+    detection:
+      metric: "db_active_connections_percentage"
+      condition: ">"
+      threshold: 90
+      time_window: "1 minute"
+    example:
+      database: "user-db"
+      active_connections_percent: 95

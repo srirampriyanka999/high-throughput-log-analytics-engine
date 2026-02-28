@@ -1,0 +1,59 @@
+log_entry:
+  description: "Standard log format for all services"
+  fields:
+    - name: timestamp
+      type: string
+      required: true
+      example: "2024-02-13 14:23:45"
+
+    - name: level
+      type: string
+      required: true
+      allowed_values: [INFO, WARNING, ERROR, CRITICAL]
+      example: "ERROR"
+
+    - name: service
+      type: string
+      required: true
+      example: "payment-service"
+
+    - name: environment
+      type: string
+      required: true
+      allowed_values: [dev, staging, prod]
+      example: "prod"
+
+    - name: request_id
+      type: string
+      required: false
+      example: "req-8f92ab"
+
+    - name: message
+      type: string
+      required: true
+      example: "Payment failed due to timeout"
+
+    - name: error_code
+      type: string
+      required: false
+      example: "DB_TIMEOUT"
+
+examples:
+  - timestamp: "2024-02-13 10:00:01"
+    level: INFO
+    service: auth-service
+    environment: prod
+    message: "User logged in successfully"
+
+  - timestamp: "2024-02-13 10:02:15"
+    level: WARNING
+    service: order-service
+    environment: prod
+    message: "Order processing is slow"
+
+  - timestamp: "2024-02-13 10:05:42"
+    level: ERROR
+    service: payment-service
+    environment: prod
+    error_code: DB_TIMEOUT
+    message: "Database connection timed out"
